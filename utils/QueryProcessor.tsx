@@ -75,10 +75,11 @@ export default function QueryProcessor(query: string): string {
       .replace(/plus/g, "+")
       .replace(/minus/g, "-")
       .replace(/multiplied by|times/g, "*")
-      .replace(/divided by|over/g, "/");
+      .replace(/divided by|over/g, "/")
+      .replace(/to the power of/g, "**"); // Add handling for exponentiation
 
   // Extract numbers and operators only (to ensure a valid math expression)
-  if (/^[\d\s+\-*/]+$/.test(expression)) {
+  if (/^[\d\s+\-*/^]+$/.test(expression)) {
       try {
           return `${Function('"use strict"; return (' + expression + ')')()}`;
       } catch (e) {
