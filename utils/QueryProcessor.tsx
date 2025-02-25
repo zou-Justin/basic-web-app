@@ -41,9 +41,9 @@ export default function QueryProcessor(query: string): string {
 
   const validNumbers = numbers.filter(isSixthPower);
   const primeNumbers = numbers.filter(isPrime);
-  if (query.toLowerCase().includes("both a square and a cube") && validNumbers.length > 0) {
-    return `${validNumbers.join(", ")}`;
-  }
+
+  let response = `Which of the following numbers is both a square and a cube: ${numbers.join(", ")}? `;
+    response += validNumbers.length > 0 ? `${validNumbers.join
 
   if (query.toLowerCase().includes("prime") && primeNumbers.length > 0) {
     return `${primeNumbers.join(", ")}`;
