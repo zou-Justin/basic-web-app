@@ -30,13 +30,13 @@ export default function QueryProcessor(query: string): string {
     const divisionMatch = query.match(/(\d+)\s*(divided by|over)\s*(\d+)/);
 
   if (additionMatch) {
-      return `${additionMatch[1]} plus ${additionMatch[2]} is ${parseInt(additionMatch[1]) + parseInt(additionMatch[2])}`;
+      return `${parseInt(additionMatch[1]) + parseInt(additionMatch[2])}`;
   } else if (multiplicationMatch) {
-      return `${multiplicationMatch[1]} multiplied by ${multiplicationMatch[3]} is ${parseInt(multiplicationMatch[1]) * parseInt(multiplicationMatch[3])}`;
+      return `${parseInt(multiplicationMatch[1]) * parseInt(multiplicationMatch[3])}`;
   } else if (subtractionMatch) {
-      return `${subtractionMatch[1]} minus ${subtractionMatch[2]} is ${parseInt(subtractionMatch[1]) - parseInt(subtractionMatch[2])}`;
+      return `${parseInt(subtractionMatch[1]) - parseInt(subtractionMatch[2])}`;
   } else if (divisionMatch) {
-      return `${divisionMatch[1]} divided by ${divisionMatch[3]} is ${parseInt(divisionMatch[1]) / parseInt(divisionMatch[3])}`;
+      return `${parseInt(divisionMatch[1]) / parseInt(divisionMatch[3])}`;
   }
   return "";
 }
