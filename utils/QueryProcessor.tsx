@@ -31,10 +31,24 @@ export default function QueryProcessor(query: string): string {
     return Math.pow(root, 6) === n;
   }
 
+  function isPrime(n) {
+    if (n < 2) return false;
+    for (let i = 2; i * i <= n; i++) {
+        if (n % i === 0) return false;
+    }
+    return true;
+  }
+
   const validNumbers = numbers.filter(isSixthPower);
-  if (validNumbers.length > 0) {
+  const primeNumbers = numbers.filter(isPrime);
+  if (query.toLowerCase().includes("both a square and a cube") && validNumbers.length > 0) {
     return `${validNumbers.join(", ")}`;
   }
+
+  if (query.toLowerCase().includes("prime") && primeNumbers.length > 0) {
+    return `${primeNumbers.join(", ")}`;
+  }
+
   
   // Match patterns like "number plus number" or "number multiplied by number"
   const additionMatch = query.match(/(\d+)\s*plus\s*(\d+)/);
