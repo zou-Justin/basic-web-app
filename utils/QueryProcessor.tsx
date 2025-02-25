@@ -81,7 +81,7 @@ export default function QueryProcessor(query: string): string {
   // Extract numbers and operators only (to ensure a valid math expression)
   if (/^[\d\s+\-*/^]+$/.test(expression)) {
       try {
-          return `${Function('"use strict"; return (' + expression + ')')()}`;
+          return `${Function('"use strict"; return ' + expression + '')()}`;
       } catch (e) {
           return "Invalid arithmetic expression.";
       }
