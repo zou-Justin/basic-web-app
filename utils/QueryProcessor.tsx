@@ -21,13 +21,26 @@ export default function QueryProcessor(query: string): string {
     return "Rohan";
   }
 
-    query = query.toLowerCase(); // Normalize the query
+  query = query.toLowerCase(); // Normalize the query
+  const numberMatch = query.match(/(\d{1,4})/g);
+  if (!numberMatch) return "I don't understand the query.";
+  const numbers = numberMatch.map(Number);
 
-    // Match patterns like "number plus number" or "number multiplied by number"
-    const additionMatch = query.match(/(\d+)\s*plus\s*(\d+)/);
-    const multiplicationMatch = query.match(/(\d+)\s*(multiplied by|times)\s*(\d+)/);
-    const subtractionMatch = query.match(/(\d+)\s*minus\s*(\d+)/);
-    const divisionMatch = query.match(/(\d+)\s*(divided by|over)\s*(\d+)/);
+  function isSixthPower(n) {
+    let root = Math.round(Math.pow(n, 1 / 6));
+    return Math.pow(root, 6) === n;
+  }
+
+  const validNumbers = numbers.filter(isSixthPower);
+  if (validNumbers.length > 0) {
+    return `${validNumbers.join(", ")}`;
+  }
+  
+  // Match patterns like "number plus number" or "number multiplied by number"
+  const additionMatch = query.match(/(\d+)\s*plus\s*(\d+)/);
+  const multiplicationMatch = query.match(/(\d+)\s*(multiplied by|times)\s*(\d+)/);
+  const subtractionMatch = query.match(/(\d+)\s*minus\s*(\d+)/);
+  const divisionMatch = query.match(/(\d+)\s*(divided by|over)\s*(\d+)/);
 
   if (additionMatch) {
       return `${parseInt(additionMatch[1]) + parseInt(additionMatch[2])}`;
